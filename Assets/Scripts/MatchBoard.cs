@@ -1,23 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class MatchBoard : MonoBehaviour
+public sealed class MatchBoard : MonoBehaviour
 {
-    [SerializeField]
-    private int _width, _height;
-    private GameObject tilePrefab;
+    public static MatchBoard Instance { get; private set; }
 
+    public MatchRow[] rows;
 
-    // Start is called before the first frame update
-    void Start()
+    public Tile[,] Tiles { get; private set; }
+
+    public int Width => Tiles.GetLength(0);
+    public int Height => Tiles.GetLength(1);
+
+    private void Awake() => Instance = this;
+
+    private void Start()
     {
-        
-    }
+        Tiles = new Tile[rows.Max(row => row.tiles.Length), rows.Length];
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
     }
 }
